@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 
-const CocktailDetail = ({ route }) => {
+const CocktailDetail = ({ route, navigation }) => {
     const [cocktail, setCocktail] = useState(null);
 
     useEffect(() => {
         const { id } = route.params;
         axios
-            //recup détails cocktail avec son id
             .get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
             .then(response => {
                 setCocktail(response.data.drinks[0]);
@@ -30,6 +30,7 @@ const CocktailDetail = ({ route }) => {
             ingredients.push({ ingredient, measure });
         }
     }
+
     //fonction liste ingrédients image , texte mesure
     const renderIngredientItem = ({ item }) => (
         <View style={styles.ingredientItem}>
@@ -40,9 +41,18 @@ const CocktailDetail = ({ route }) => {
             <Text>{`${item.measure} ${item.ingredient}`}</Text>
         </View>
     );
+
+    //fonction bouton retour
+    const handleBackPress = () => {
+        navigation.goBack();
+    };
+
     //rendu
     return (
         <View style={styles.container}>
+            <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+                <Ionicons name="arrow-back" size={24} color="black" />
+            </TouchableOpacity>
             <Image
                 style={styles.image}
                 source={{ uri: cocktail.strDrinkThumb }}
@@ -90,6 +100,11 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         marginRight: 10,
+    },
+    backButton: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
     },
 });
 

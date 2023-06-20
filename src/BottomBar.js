@@ -17,6 +17,7 @@ const BottomBar = ({ navigation }) => {
             <TouchableOpacity style={styles.bottomBarButton} onPress={handleHomePress}>
                 <Text style={styles.bottomBarButtonText}>🏠 Home 🏠</Text>
             </TouchableOpacity>
+            <View style={styles.separator} />
             <TouchableOpacity style={styles.bottomBarButton} onPress={handleAutrePagesPress}>
                 <Text style={styles.bottomBarButtonText}>🍹 Catégories 🍹</Text>
             </TouchableOpacity>
@@ -37,11 +38,16 @@ const styles = StyleSheet.create({
         right: 0,
     },
     bottomBarButton: {
-        padding: 10,
+        padding: 17,
     },
     bottomBarButtonText: {
-        fontSize: 15,
+        fontSize:18,
         fontWeight: 'bold',
+    },
+    separator: {
+        width: 3,
+        height: '100%',
+        backgroundColor: 'black',
     },
 });
 
